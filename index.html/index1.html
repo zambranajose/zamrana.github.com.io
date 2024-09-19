@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación a Helado</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+            transform: scale(1.1); /* Zoom aumentado a 10% */
+        }
+
+        #response, #secondText, #thirdText, #finalText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: white;
+            display: none;
+            text-align: center;
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        .button {
+            width: 50px;
+            height: 50px;
+            background-color: #ff6600;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 5px;
+            font-size: 16px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button:hover {
+            background-color: #ff8533;
+        }
+    </style>
+</head>
+<body>
+    <video id="video1" autoplay playsinline muted>
+        <source src="lotusanimacion.mp4" type="video/mp4">
+        <source src="lotusanimacion.webm" type="video/webm">
+        Tu navegador no soporta la etiqueta de video.
+    </video>
+    <video id="video2" playsinline muted>
+        <source src="corazondeloto.mp4" type="video/mp4">
+        <source src="corazondeloto.webm" type="video/webm">
+        Tu navegador no soporta la etiqueta de video.
+    </video>
+    <audio id="audio" autoplay loop>
+        <source src="flrescos.mp3" type="audio/mpeg">
+        <source src="flrescos.ogg" type="audio/ogg">
+        Tu navegador no soporta la etiqueta de audio.
+    </audio>
+    <div id="secondText">¿Te puedo invitar a comer un pollo 🫣?</div>
+    <div id="thirdText">¿Esta vez no me vas a dejar plantado 🫣😒?</div>
+    <div id="finalText">Bueno, confiaré en vos. Dime el día en el chat. Ah, y tus amigos no pueden hacer esto 🙈😊</div>
+
+    <div class="button-container" id="buttonContainer">
+        <button class="button" id="acceptBtn">Sí</button>
+        <button class="button" id="declineBtn">No</button>
+    </div>
+
+    <script>
+        const video1 = document.getElementById('video1');
+        const video2 = document.getElementById('video2');
+        const audio = document.getElementById('audio');
+        const secondText = document.getElementById('secondText');
+        const thirdText = document.getElementById('thirdText');
+        const finalText = document.getElementById('finalText');
+        const buttonContainer = document.getElementById('buttonContainer');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const declineBtn = document.getElementById('declineBtn');
+
+        // Mostrar el primer video
+        video1.style.display = 'block';
+
+        video1.onended = function() {
+            video1.style.display = 'none';
+            video2.style.display = 'block';
+            video2.play();
+        };
+
+        video2.onplay = function() {
+            secondText.style.display = 'block';
+            buttonContainer.style.display = 'flex';
+        };
+
+        acceptBtn.onclick = function() {
+            if (thirdText.style.display === 'block') {
+                thirdText.style.display = 'none';
+                finalText.style.display = 'block';
+                buttonContainer.style.display = 'none';
+            } else {
+                secondText.style.display = 'none';
+                thirdText.style.display = 'block';
+                acceptBtn.style.width = '50px';
+                acceptBtn.style.height = '50px';
+            }
+        };
+
+        declineBtn.onclick = function() {
+            const currentWidth = acceptBtn.offsetWidth;
+            const currentHeight = acceptBtn.offsetHeight;
+            acceptBtn.style.width = currentWidth + 20 + 'px';
+            acceptBtn.style.height = currentHeight + 20 + 'px';
+        };
+    </script>
+</body>
+</html>
